@@ -4,13 +4,13 @@
 
 Monte Carlo methods, or Monte Carlo Simulation are a broad class of computational algorithms that rely on repeated random sampling to obtain numerical results. The underlying concept is to use randomness to solve problems that might be deterministic in principle. Monte Carlo methods are used in many user scenarios, such as finance, online gaming, science, mathematics, engineering and so on; this blog demonstrates Monte Carlo methods by Pi with Flame.
 
-<img alt="Pi_30k" style="float: right" src="../images/Pi_30K.gif"/>
+<figure><img src="../.gitbook/assets/Pi_30K.gif" alt=""><figcaption></figcaption></figure>
 
 Considering a quadrant (circular sector) inscribed in a unit square; given that the ratio of their areas is `π/4`, the value of `π` can be approximated using a Monte Carlo method:
 
-  * Draw a square, then inscribe a quadrant within it
-  * Uniformly scatter a given number of points over the square
-  * Count the number of points inside the quadrant, i.e. having a distance from the origin of less than 1
+* Draw a square, then inscribe a quadrant within it
+* Uniformly scatter a given number of points over the square
+* Count the number of points inside the quadrant, i.e. having a distance from the origin of less than 1
 
 The ratio of the inside-count and the total-sample-count is an estimate of the ratio of the two areas, `π/4`. Multiply the result by 4 to estimate `π`.
 
@@ -18,8 +18,8 @@ In this procedure the domain of inputs is the square that circumscribes the quad
 
 There are two important considerations:
 
-  1. If the points are not uniformly distributed, then the approximation will be poor.
-  2. The approximation is generally poor if only a few points are randomly placed in the whole square. On average, the approximation improves as more points are placed.
+1. If the points are not uniformly distributed, then the approximation will be poor.
+2. The approximation is generally poor if only a few points are randomly placed in the whole square. On average, the approximation improves as more points are placed.
 
 Uses of Monte Carlo methods require large amounts of random numbers, and their use benefitted greatly from pseudorandom number generators, which were far quicker to use than the tables of random numbers that had been previously used for statistical sampling.
 
@@ -28,11 +28,11 @@ Uses of Monte Carlo methods require large amounts of random numbers, and their u
 According to the description above, it's straight forward to approximate the value of `π` by following steps:
 
 1. Generate two number randomly as coordinates of the point.
-1. Calculate the distance of the point by  $\sqrt{x^2+y^2}$; if the distance is less than the radius of circle, counting it as circle's area.
-1. Continue step-1 and step-2 according to programe's arguments, e.g. $10^7$.
-1. Approximate the value of `π` by $4*circle/square$, the square is the input of programe's argumment.
+2. Calculate the distance of the point by $\sqrt{x^2+y^2}$; if the distance is less than the radius of circle, counting it as circle's area.
+3. Continue step-1 and step-2 according to programe's arguments, e.g. $10^7$.
+4. Approximate the value of `π` by $4\*circle/square$, the square is the input of programe's argumment.
 
-Thanks to Rust `rand` model, it's easy to generte coordinates randomly; so the value of `π` is approximated as follow, the full source code can be downloaded from [Flame repo](../../examples/pi/src/local/).
+Thanks to Rust `rand` model, it's easy to generte coordinates randomly; so the value of `π` is approximated as follow, the full source code can be downloaded from [Flame repo](../examples/pi/src/local/).
 
 ```rust
     let mut area = 0.0;
@@ -75,7 +75,7 @@ sys     0m0.031s
 
 ```
 
-## Scale up by Flame 
+## Scale up by Flame
 
 ### Why Flame?
 
@@ -107,7 +107,7 @@ After connected to Flame cluster, `flame::Connection` is used to create `Session
 There're two ways to submit tasks and retrieve tasks outputs:
 
 1. Submit task input to create task by `flame::Session::create_task`, and then keep calling `flame::Session::get_task()` to check task status; when it's succeed, retrieve task output accordingly.
-1. Submit task input with an informer `flame::TaskInformer` to create task by `flame::Session::run_task`; when the task status chagned, a callback function in `flame::TaskInformer` will be triggerred.
+2. Submit task input with an informer `flame::TaskInformer` to create task by `flame::Session::run_task`; when the task status chagned, a callback function in `flame::TaskInformer` will be triggerred.
 
 In this example, the second way is used. In the callback function, if there's an output (only generated when task completed), consider it into circle's area.
 
@@ -209,6 +209,6 @@ ID        State     App            Slots     Pending   Running   Succeed   Faile
 
 ## Reference
 
-* Pi Example: https://github.com/xflops/flame/tree/main/examples/pi
-* Github: https://github.com/xflops/flame
-* Dockerhub: https://hub.docker.com/u/xflops
+* Pi Example: [https://github.com/xflops/flame/tree/main/examples/pi](https://github.com/xflops/flame/tree/main/examples/pi)
+* Github: [https://github.com/xflops/flame](https://github.com/xflops/flame)
+* Dockerhub: [https://hub.docker.com/u/xflops](https://hub.docker.com/u/xflops)
